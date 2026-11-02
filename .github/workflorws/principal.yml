@@ -1,0 +1,18 @@
+#Define o nome do workflow
+name: Test workflow
+
+#Define quando o workflow será disparado
+on:
+  push:
+    branches:[main]
+
+jobs:
+  test_job:
+    name: Executando o job de teste
+    runs-on: self-hosted
+    steps:
+      - name: Step 1
+        uses: actions/checkout@v2
+
+      - name: Step 2
+        run: echo "olá undo, este é o meu primeiro pipe com GH actions"
