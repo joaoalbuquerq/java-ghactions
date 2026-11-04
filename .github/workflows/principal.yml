@@ -12,18 +12,23 @@ jobs:
     name: Executando o job de teste
     runs-on: ubuntu-latest
     steps:
+
+      #prepara o runner
       - name: Step 1
         uses: actions/checkout@v2
 
+      # prepara o login no docker hub
       - name: Docker Login
         uses: docker/login-action@v4.7.0
         with:
           username: 'pedroaalbuquerq'
           password: ${{secrets.DOCKERHUBACESS}}
+
+      # builda e envia a imagem pro docker hub
       - name: Build and push Docker images
         uses: docker/build-push-action@v7.4.0
         with:
           context: .
-          tags: 'latest'
+          tags: 'pedroaalbuquerq/fiap-ghactions:latest'
           push: true
 
