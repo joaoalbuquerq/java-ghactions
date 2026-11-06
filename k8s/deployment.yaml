@@ -1,0 +1,27 @@
+apiVersion: apps/v1 #indica a versao da api do kubernets utilizada
+kind: Deployment # tipo de recurso que está sendo criado 
+
+metadata: 
+  name: minha-api # nome do deployment que estamos criando 
+
+spec: 
+  replicas: 2 #quantidade desejada de pods (instancias ?)
+
+  selector: # criterio para identificar os pods gerenciados
+    matchLabels:
+      app: minha-api
+
+  template: # modelo utilizado para criar os pods (como se fosse a receita dos pods)
+    metadata:
+      labels:
+        app: minha-api
+  
+    spec: 
+      imagePullSecrets: #configuracao de acesso para o arquivo deployment conseguir se conectar no dockerhub e dar pull na imagem
+        - name: dockerhub-secret
+
+      containers:
+        - name: minha-api 
+          image: pedroaalbuquerq/fiap-ghactions:latest #imagem docker que será utilizada
+          ports:
+            - containerPort: 8080 #porta em que a aplicação escuta dentro do container
